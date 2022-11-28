@@ -17,6 +17,7 @@ export async function action({ request, params }) {
 
 export async function loader({ params }) {
   const contact = await getContact(params.contactId);
+
   if (!contact) {
     throw new Response("", {
       status: 404,
@@ -32,7 +33,7 @@ export default function Contact() {
   const navigation = useNavigation();
 
   return (
-    <div id="contact">
+    <div id="contact" style={{ height: "1500px", backgroundColor: "orange" }}>
       <div>
         <img key={contact.avatar} src={contact.avatar || null} />
       </div>

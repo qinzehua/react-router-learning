@@ -7,6 +7,7 @@ import {
   redirect,
   useNavigation,
   useSubmit,
+  ScrollRestoration,
 } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getContacts, createContact, sleep } from "../contacts";
@@ -41,8 +42,8 @@ export default function Root() {
     <>
       <div id="sidebar">
         <h1>React Router Contacts</h1>
-        <div style={{ display: "flex" }}>
-          <NavLink to="about">
+        <div style={{ display: "flex", position: "fixed", zIndex: "100" }}>
+          <NavLink to="about" preventScrollReset={true}>
             <button>About</button>
           </NavLink>
 
@@ -78,10 +79,11 @@ export default function Root() {
         </div>
         <nav>
           {contacts.length ? (
-            <ul>
+            <ul style={{ position: "fixed" }}>
               {contacts.map((contact) => (
                 <li key={contact.id}>
                   <NavLink
+                    preventScrollReset={true}
                     to={`contacts/${contact.id}`}
                     className={({ isActive, isPending }) =>
                       isActive ? "active" : isPending ? "pending" : ""
@@ -109,6 +111,12 @@ export default function Root() {
       <div id="detail">
         <Outlet />
       </div>
+      <ScrollRestoration
+        getKey={(location, matches) => {
+          // default behavior
+          return location.pathname;
+        }}
+      />
     </>
   );
 }

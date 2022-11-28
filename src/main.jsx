@@ -10,7 +10,7 @@ import Contact, {
   action as contactAction,
 } from "./routes/contact";
 import EditContact, { action as editAction } from "./routes/edit";
-import { About } from "./routes/about";
+import { About, loader as AboutLoader } from "./routes/about";
 import { action as destroyAction } from "./routes/destroy";
 import Index from "./routes/index";
 
@@ -55,6 +55,7 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+        loader: AboutLoader,
       },
     ],
   },
